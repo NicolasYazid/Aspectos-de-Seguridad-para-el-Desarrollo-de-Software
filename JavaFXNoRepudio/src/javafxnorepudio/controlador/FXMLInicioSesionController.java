@@ -117,9 +117,9 @@ public class FXMLInicioSesionController implements Initializable {
         try {
             Sesion sesion = servicioAutenticacion.confirmarCodigo(username, codigo);
             if (!(sesion.isError())) {
-                Utilidades.mostrarAlertaSimple("Código verificado correctamente", "Bienvenido(a)" +
-                        sesion.getUsuario().getNombre() + "" +
-                        sesion.getUsuario().getApellidoPaterno() + "" +
+                Utilidades.mostrarAlertaSimple("Código verificado correctamente", "Bienvenido(a) " +
+                        sesion.getUsuario().getNombre() + " " +
+                        sesion.getUsuario().getApellidoPaterno() + " " +
                         sesion.getUsuario().getApellidoMaterno(),
                         Alert.AlertType.CONFIRMATION);
                 irPantallaSiguiente();
