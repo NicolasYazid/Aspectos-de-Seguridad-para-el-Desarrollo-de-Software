@@ -15,8 +15,8 @@ import javax.mail.internet.MimeMessage;
  */
 public class EmailService {
     
-    private final String remitente = "yazidnicolasch@gmail.com";
-    private final String password = "ucwc pbzh nlmo dccr";
+    private final String remitente = "correo electrónico";
+    private final String password = "contraseña";
     
     public void enviarCorreoMfa(String destinatario, String codigoMfa) {
         // 1. Configurar las propiedades del servidor SMTP de Gmail
