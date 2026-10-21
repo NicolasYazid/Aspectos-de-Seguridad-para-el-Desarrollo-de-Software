@@ -127,7 +127,7 @@ public class FXMLInicioSesionController implements Initializable {
                 Utilidades.mostrarAlertaSimple("Error de validación de código",
                         sesion.getMensaje(),
                         Alert.AlertType.WARNING);
-                if (!sesion.getMensaje().contains("Incorrecto")) {
+                if (!sesion.getMensaje().contains("incorrecto")) {
                     mostrarVistaCredenciales(true);
                 }
             }

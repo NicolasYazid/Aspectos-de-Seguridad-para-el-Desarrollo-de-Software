@@ -134,6 +134,7 @@ public class AutenticacionService {
             sesion.setError(true);
             sesion.setMensaje("El código ingresado es incorrecto, por favor verifique lo que ha ingresado.");
         } else {
+            sesion.setError(true);
             sesion.setMensaje("Lo sentimos el código ingresado ha expirado, por favor repita el proceso de nuevo.");
             codigosPendientes.remove(usuario);
         }
