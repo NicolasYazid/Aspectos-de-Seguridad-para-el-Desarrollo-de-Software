@@ -48,8 +48,8 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Label fx:id="lblErrorUserName" text="Label" textFill="#f51010" />
-                  <Label fx:id="lblErrorPassword" text="Label" textFill="#f51010" />
+                  <Label fx:id="lblErrorUserName" textFill="#f51010" />
+                  <Label fx:id="lblErrorPassword" textFill="#f51010" />
                </children>
                <padding>
                   <Insets left="25.0" right="25.0" top="25.0" />
@@ -66,8 +66,8 @@
                      </padding>
                   </Label>
                   <TextField fx:id="tfCodigo" onAction="#tfCodigo" promptText="666666" />
-                  <Label fx:id="lblErrorCorreo" prefHeight="21.0" prefWidth="316.0" textFill="#e11212" />
-                  <Label fx:id="lblErrorCodigo" text="Label" textFill="#e82626" />
+                  <Label fx:id="lblErrorCorreo" visible="false" managed="false" prefHeight="21.0" prefWidth="316.0" textFill="#e11212" />
+                  <Label fx:id="lblErrorCodigo" textFill="#e82626" />
                   <Button mnemonicParsing="false" onAction="#handleButtonVerificarCodigo" text="Ingresar" />
                </children>
             </VBox>
