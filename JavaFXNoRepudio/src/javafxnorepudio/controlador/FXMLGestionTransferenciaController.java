@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafxnorepudio.modelo.pojo.RespuestaBanco;
 import javafxnorepudio.modelo.servicio.TransferenciaService;
 import javafxnorepudio.utilidades.SecurityUtil;
 import javafxnorepudio.utilidades.Utilidades;
@@ -63,7 +64,34 @@ public class FXMLGestionTransferenciaController implements Initializable {
     
     private void realizarTransferenciaServidor(String cuentaOrigen, String cuentaDestino, String monto) {
         TransferenciaService transferencia = new TransferenciaService();
-        transferencia.ejecutarTransferenciaSocket(cuentaOrigen, cuentaDestino, monto);
+        RespuestaBanco respuesta = transferencia.ejecutarTransferenciaSocket(cuentaOrigen, cuentaDestino, monto);
+        mostrarRespuestaBanco(respuesta);
+    }
+
+    private void mostrarRespuestaBanco(RespuestaBanco respuesta) {
+        String detalle = respuesta.getCodigo() + " - " + respuesta.getMensaje();
+        switch (respuesta.getCodigo()) {
+            case 200:
+                Utilidades.mostrarAlertaSimple("Transferencia exitosa", detalle, Alert.AlertType.INFORMATION);
+                tfCuentaOrigen.setText("");
+                tfCuentaDestino.setText("");
+                tfMonto.setText("");
+                break;
+            case 400:
+                Utilidades.mostrarAlertaSimple("Datos inválidos", detalle, Alert.AlertType.WARNING);
+                break;
+            case 401:
+                Utilidades.mostrarAlertaSimple("Cliente no autorizado", detalle, Alert.AlertType.ERROR);
+                break;
+            case 403:
+                Utilidades.mostrarAlertaSimple("Firma inválida", detalle, Alert.AlertType.ERROR);
+                break;
+            case 500:
+                Utilidades.mostrarAlertaSimple("Error del banco", detalle, Alert.AlertType.ERROR);
+                break;
+            default:
+                Utilidades.mostrarAlertaSimple("Sin respuesta del banco", respuesta.getMensaje(), Alert.AlertType.ERROR);
+        }
     }
     
     // Recuerda que la seguridad es un elemento adicional a la lógica de negocio

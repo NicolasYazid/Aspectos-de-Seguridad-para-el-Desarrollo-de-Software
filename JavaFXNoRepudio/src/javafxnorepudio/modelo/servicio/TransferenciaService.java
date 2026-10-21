@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import javafxnorepudio.modelo.pojo.PeticionTransferencia;
+import javafxnorepudio.modelo.pojo.RespuestaBanco;
 import javafxnorepudio.utilidades.SecurityUtil;
 
 /**
@@ -25,12 +26,16 @@ public class TransferenciaService {
     private final String IP_BANCO = "127.0.0.1";
     private final int PUERTO = 5005;
     
-    public void ejecutarTransferenciaSocket(String cuentaOrigen, String cuentaDestino, String monto) {
+    public RespuestaBanco ejecutarTransferenciaSocket(String cuentaOrigen, String cuentaDestino, String monto) {
         System.out.println("[CLIENTE] Preparando transferencia para enviarlo al servidor.");
         PeticionTransferencia peticion = new PeticionTransferencia();
         peticion.setCuentaOrigen(cuentaOrigen);
         peticion.setCuentaDestino(cuentaDestino);
-        peticion.setMonto(Double.parseDouble(monto));
+        try {
+            peticion.setMonto(Double.parseDouble(monto));
+        } catch (NumberFormatException e) {
+            return new RespuestaBanco(400, "El monto ingresado no es un número válido.");
+        }
         String datosRaw = peticion.obtenerDatosFirma();
         String clienteId = ConfigReader.getProperty("cliente.id");
         
@@ -48,8 +53,20 @@ public class TransferenciaService {
             out.println(payloadJSON);
             String respuesta = in.readLine();
             System.out.println("[CLIENTE] Respuesta del banco: " + respuesta);
+            return interpretarRespuesta(respuesta);
         } catch (IOException e) {
             System.err.println("[CLIENTE] Error de conexión: " + e.getMessage());
+            return new RespuestaBanco(0, "No fue posible conectar con el banco.");
         }
+    }
+
+    // El banco responde "<código> <texto>", por ejemplo "401 NO AUTORIZADO: ..."
+    private RespuestaBanco interpretarRespuesta(String respuesta) {
+        if (respuesta == null || !respuesta.matches("^\\d{3}\\b.*")) {
+            return new RespuestaBanco(0, "El banco no envió una respuesta válida.");
+        }
+        int codigo = Integer.parseInt(respuesta.substring(0, 3));
+        String mensaje = respuesta.substring(3).replaceFirst("^[\\s:]+", "");
+        return new RespuestaBanco(codigo, mensaje);
     }
 }
