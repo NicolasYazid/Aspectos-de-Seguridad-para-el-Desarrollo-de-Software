@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="475.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxnorepudio.controlador.FXMLInicioSesionController">
+   <children>
+      <Pane layoutX="3.0" layoutY="3.0" prefHeight="472.0" prefWidth="295.0">
+         <children>
+            <ImageView fitHeight="193.0" fitWidth="243.0" layoutX="26.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/oveja.png" />
+               </image>
+            </ImageView>
+            <VBox layoutX="181.0" layoutY="180.0" prefHeight="200.0" prefWidth="100.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="294.0" prefHeight="472.0" prefWidth="539.0">
+         <children>
+            <Label layoutX="163.0" layoutY="50.0" text="Bienvenido al banco 5T" />
+            <VBox fx:id="vbCredenciales" alignment="TOP_CENTER" layoutX="54.0" layoutY="71.0" prefHeight="340.0" prefWidth="441.0" visible="false">
+               <children>
+                  <Label prefHeight="21.0" prefWidth="430.0" text="Para iniciar sesion ingresa tu nombre de usuario y contraseña">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Ingresa tu nombre de usuario" />
+                  <TextField fx:id="tfUserName">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Ingresa tu contraseña" />
+                  <PasswordField fx:id="tfPassword" promptText="*******">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </PasswordField>
+                  <Button mnemonicParsing="false" onAction="#btnSignIn" text="Iniciar sesión">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label fx:id="lblErrorUserName" text="Label" textFill="#f51010" />
+                  <Label fx:id="lblErrorPassword" text="Label" textFill="#f51010" />
+               </children>
+               <padding>
+                  <Insets left="25.0" right="25.0" top="25.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="vbCodigo" layoutX="54.0" layoutY="71.0" prefHeight="340.0" prefWidth="441.0">
+               <padding>
+                  <Insets left="15.0" right="15.0" top="30.0" />
+               </padding>
+               <children>
+                  <Label fx:id="lblCorreoCodigo" prefHeight="69.0" prefWidth="411.0">
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="tfCodigo" onAction="#tfCodigo" promptText="666666" />
+                  <Label fx:id="lblErrorCorreo" prefHeight="21.0" prefWidth="316.0" textFill="#e11212" />
+                  <Label fx:id="lblErrorCodigo" text="Label" textFill="#e82626" />
+                  <Button mnemonicParsing="false" onAction="#handleButtonVerificarCodigo" text="Ingresar" />
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
